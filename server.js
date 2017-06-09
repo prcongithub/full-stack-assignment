@@ -20,7 +20,8 @@ const passport = require('passport');
 const config = require('./config');
 
 const models = join(__dirname, 'app/models');
-const port = process.env.PORT || 8080;
+console.log(process.env.PORT)
+const port = process.env.PORT || 5000;
 const app = express();
 
 /**
