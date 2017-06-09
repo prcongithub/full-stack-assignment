@@ -1,0 +1,18 @@
+extends ../layouts/mobile
+
+block main
+  h1= title
+
+block content
+  - each quiz in quizzes
+    .quiz
+      h3
+        a(href='/quizzes/'+quiz._id, title=quiz.title) #{quiz.title}
+
+      .meta.muted
+        span= formatDate(quiz.createdAt)
+        | &nbsp; - &nbsp;
+        &nbsp; - &nbsp;
+  - if (pages > 1)
+    ul.pagination
+      != createPagination(pages, page)

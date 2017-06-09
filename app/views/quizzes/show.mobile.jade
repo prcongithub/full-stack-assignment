@@ -1,0 +1,21 @@
+extends ../layouts/mobile
+
+
+block main
+  h1= quiz.title
+
+block content
+  .row
+    .span9
+    .span3
+      - if (!quiz.isNew && quiz.image && quiz.image.files && quiz.image.files.length)
+        img(src=quiz.image.cdnUri + '/mini_' + quiz.image.files[0])
+
+  p
+    br
+    form.center.form-inline.confirm(action="/quizzes/"+quiz.id, method="post")
+      input(type='hidden', name='_csrf', value="#{csrf_token}")
+      a.btn(href='/quizzes/'+quiz._id+'/edit', title="edit") Edit
+      | &nbsp;&nbsp;
+      input(type="hidden", name="_method", value="DELETE")
+      button.btn.btn-danger(type="submit") delete

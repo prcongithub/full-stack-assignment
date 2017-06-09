@@ -1,0 +1,7 @@
+quiz.quiz
+  h3
+    a(href='/quizzes/'+quiz._id, title=quiz.title) #{quiz.title}
+  p= quiz.body
+
+  .meta
+    span.muted= formatDate(quiz.createdAt)

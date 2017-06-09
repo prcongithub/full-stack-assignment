@@ -5,7 +5,7 @@
  */
 
 module.exports = {
-  db: process.env.MONGOHQ_URL,
+  db: 'mongodb://admin:admin@ds117592.mlab.com:17592/heroku_1sblr5gv',
   facebook: {
     clientID: process.env.FACEBOOK_CLIENTID,
     clientSecret: process.env.FACEBOOK_SECRET,

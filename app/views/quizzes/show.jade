@@ -1,0 +1,21 @@
+extends ../layouts/default
+
+block main
+  h1= quiz.title
+
+block content
+  .row
+    .col-md-8
+      .meta
+        p.muted= formatDate(quiz.createdAt, "%b %d, %Y at %I:%M %p")
+
+    .col-md-4
+      - if (!quiz.isNew && quiz.image && quiz.image.files && quiz.image.files.length)
+        img(src=quiz.image.cdnUri + '/mini_' + quiz.image.files[0])
+
+  form(action="/quizzes/"+quiz.id, method="post", onsubmit="return confirm('Are you sure?')")
+    input(type='hidden', name='_csrf', value="#{csrf_token}")
+    a.btn.btn-default(href='/quizzes/'+quiz._id+'/edit', title="edit") Edit
+    | &nbsp;
+    input(type="hidden", name="_method", value="DELETE")
+    button.btn.btn-danger(type="submit") Delete

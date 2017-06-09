@@ -5,18 +5,15 @@
  */
 
 const users = require('../app/controllers/users');
-const articles = require('../app/controllers/articles');
-const comments = require('../app/controllers/comments');
-const tags = require('../app/controllers/tags');
+const quizzes = require('../app/controllers/quizzes');
 const auth = require('./middlewares/authorization');
 
 /**
  * Route middlewares
  */
 
-const articleAuth = [auth.requiresLogin, auth.article.hasAuthorization];
-const commentAuth = [auth.requiresLogin, auth.comment.hasAuthorization];
-
+const quizAuth = [auth.requiresLogin, auth.quiz.hasAuthorization];
+// 
 const fail = {
   failureRedirect: '/login'
 };
@@ -69,28 +66,18 @@ module.exports = function (app, passport) {
 
   app.param('userId', users.load);
 
-  // article routes
-  app.param('id', articles.load);
-  app.get('/articles', articles.index);
-  app.get('/articles/new', auth.requiresLogin, articles.new);
-  app.post('/articles', auth.requiresLogin, articles.create);
-  app.get('/articles/:id', articles.show);
-  app.get('/articles/:id/edit', articleAuth, articles.edit);
-  app.put('/articles/:id', articleAuth, articles.update);
-  app.delete('/articles/:id', articleAuth, articles.destroy);
+  // quiz routes
+  app.param('id', quizzes.load);
+  app.get('/quizzes', quizzes.index);
+  app.get('/quizzes/new', auth.requiresLogin, quizzes.new);
+  app.post('/quizzes', auth.requiresLogin, quizzes.create);
+  app.get('/quizzes/:id', quizzes.show);
+  app.get('/quizzes/:id/edit', quizAuth, quizzes.edit);
+  app.put('/quizzes/:id', quizAuth, quizzes.update);
+  app.delete('/quizzes/:id', quizAuth, quizzes.destroy);
 
   // home route
-  app.get('/', articles.index);
-
-  // comment routes
-  app.param('commentId', comments.load);
-  app.post('/articles/:id/comments', auth.requiresLogin, comments.create);
-  app.get('/articles/:id/comments', auth.requiresLogin, comments.create);
-  app.delete('/articles/:id/comments/:commentId', commentAuth, comments.destroy);
-
-  // tag routes
-  app.get('/tags/:tag', tags.index);
-
+  app.get('/', quizzes.index);
 
   /**
    * Error handling
